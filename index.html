@@ -348,3 +348,23 @@ load(fromHash(), false);
 
 </body>
 </html>
+
+<!-- 자막 크기: 플레이어 폭에 비례 + 작게/보통/크게 선택 (세로 휴대폰 대응) -->
+<style>
+video::cue{font-size:clamp(11px,2.1vw,22px)!important;line-height:1.4;background:rgba(23,48,94,.85)}
+video.cc-s::cue{font-size:clamp(9px,1.6vw,17px)!important}
+video.cc-l::cue{font-size:clamp(13px,2.8vw,28px)!important}
+@media (max-width:900px){video::cue{font-size:clamp(11px,3.1vw,20px)!important}video.cc-s::cue{font-size:clamp(9px,2.5vw,16px)!important}video.cc-l::cue{font-size:clamp(13px,3.9vw,26px)!important}}
+</style>
+<script>
+(function(){
+  var v=document.getElementById('v'), cc=document.getElementById('cc'); if(!v||!cc) return;
+  var lab=document.createElement('label');
+  lab.innerHTML='자막 크기 <select id="ccs"><option value="cc-s">작게</option><option value="" selected>보통</option><option value="cc-l">크게</option></select>';
+  cc.closest('label').after(lab);
+  var s=lab.querySelector('select');
+  try{var z=localStorage.getItem('iem-ccs'); if(z!==null) s.value=z;}catch(e){}
+  function apply(){ v.classList.remove('cc-s','cc-l'); if(s.value) v.classList.add(s.value); try{localStorage.setItem('iem-ccs',s.value);}catch(e){} }
+  s.addEventListener('change',apply); apply();
+})();
+</script>
