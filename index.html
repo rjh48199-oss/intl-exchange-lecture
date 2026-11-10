@@ -368,3 +368,12 @@ video.cc-l::cue{font-size:clamp(13px,2.8vw,28px)!important}
   s.addEventListener('change',apply); apply();
 })();
 </script>
+
+<!-- 대본 탭 제거: 장면 목차를 기본 탭으로 -->
+<script>
+(function(){
+  var b=document.querySelector('.tablist button[data-p="script"]'); if(!b) return;
+  b.remove();
+  var s=document.querySelector('.tablist button[data-p="scenes"]'); if(s) s.click();
+})();
+</script>
